@@ -1,0 +1,96 @@
+<h2>Formulario de contacto</h2>
+
+<!-- MENSAJE DE ÉXITO -->
+<div
+  class="success-message"
+  *ngIf="enviado"
+  aria-live="polite"
+>
+  ✅ Mensaje enviado correctamente. ¡Gracias por contactarte!
+</div>
+
+<!-- FORMULARIO -->
+<form
+  *ngIf="!enviado"
+  [formGroup]="formulario"
+  (ngSubmit)="enviar()"
+  novalidate
+  class="contact-form"
+>
+
+  <!-- NOMBRE -->
+  <div class="form-group">
+    <label for="nombre">Nombre</label>
+    <input
+      id="nombre"
+      type="text"
+      formControlName="nombre"
+      [class.error]="formulario.get('nombre')?.invalid && formulario.get('nombre')?.touched"
+    >
+
+    <div
+      class="error-text"
+      *ngIf="formulario.get('nombre')?.touched && formulario.get('nombre')?.invalid"
+    >
+      <small *ngIf="formulario.get('nombre')?.errors?.['required']">
+        El nombre es obligatorio
+      </small>
+      <small *ngIf="formulario.get('nombre')?.errors?.['minlength']">
+        Debe tener al menos 3 caracteres
+      </small>
+    </div>
+  </div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+    <label for="email">Email</label>
+    <input
+      id="email"
+      type="email"
+      formControlName="email"
+      [class.error]="formulario.get('email')?.invalid && formulario.get('email')?.touched"
+    >
+
+    <div
+      class="error-text"
+      *ngIf="formulario.get('email')?.touched && formulario.get('email')?.invalid"
+    >
+      <small *ngIf="formulario.get('email')?.errors?.['required']">
+        El email es obligatorio
+      </small>
+      <small *ngIf="formulario.get('email')?.errors?.['email']">
+        El formato del email no es válido
+      </small>
+    </div>
+  </div>
+
+  <!-- MENSAJE -->
+  <div class="form-group">
+    <label for="mensaje">Mensaje</label>
+    <textarea
+      id="mensaje"
+      rows="4"
+      formControlName="mensaje"
+      [class.error]="formulario.get('mensaje')?.invalid && formulario.get('mensaje')?.touched"
+    ></textarea>
+
+    <div
+      class="error-text"
+      *ngIf="formulario.get('mensaje')?.touched && formulario.get('mensaje')?.invalid"
+    >
+      <small *ngIf="formulario.get('mensaje')?.errors?.['required']">
+        El mensaje es obligatorio
+      </small>
+      <small *ngIf="formulario.get('mensaje')?.errors?.['minlength']">
+        Debe tener al menos 10 caracteres
+      </small>
+    </div>
+  </div>
+
+  <!-- BOTÓN -->
+  <button type="submit" [disabled]="formulario.invalid">
+    Enviar
+  </button>
+
+</form>
+
