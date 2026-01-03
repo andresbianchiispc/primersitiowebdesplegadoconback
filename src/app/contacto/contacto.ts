@@ -46,7 +46,7 @@ export class Contacto implements OnDestroy {
     return;
   }
 
-  this.http.post('http://localhost:3000/contacto', this.formulario.value)
+  this.http.post('https://primersitiowebconback-back-production.up.railway.app/contacto', this.formulario.value)
     .subscribe({
       next: () => {
         this.enviado = true;
